@@ -1,5 +1,6 @@
 const { Category } = require('../models');
 
+const OK = 200;
 const CREATED = 201;
 const ERROR = 400;
 const MESSAGE = { message: '"name" is required' };
@@ -10,4 +11,9 @@ const insertCategory = async (name) => {
   return { type: CREATED, message: newCategory };
 };
 
-module.exports = { insertCategory };
+const getCategories = async () => {
+  const categories = await Category.findAll();
+  return { type: OK, message: categories };
+};
+
+module.exports = { insertCategory, getCategories };
