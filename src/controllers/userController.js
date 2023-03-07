@@ -24,4 +24,14 @@ const getUsers = async (_req, res) => {
   }
 };
 
-module.exports = { insertUser, getUsers };
+const getUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { type, message } = await userService.getUser(id);
+    return res.status(type).json(message);
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};
+
+module.exports = { insertUser, getUsers, getUser };
