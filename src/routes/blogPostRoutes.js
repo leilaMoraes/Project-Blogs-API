@@ -6,5 +6,6 @@ const { blogPostController } = require('../controllers');
 const tokenValidation = require('../middleware/tokenValidation');
 
 postRouter.get('/', tokenValidation, blogPostController.getPosts);
+postRouter.get('/:id', tokenValidation, blogPostController.getPost);
 
 module.exports = postRouter;
