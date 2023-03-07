@@ -10,4 +10,13 @@ const insertCategory = async (req, res) => {
   }
 };
 
-module.exports = { insertCategory };
+const getCategories = async (_req, res) => {
+  try {
+    const { type, message } = await categoryService.getCategories();
+    return res.status(type).json(message);
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};
+
+module.exports = { insertCategory, getCategories };
