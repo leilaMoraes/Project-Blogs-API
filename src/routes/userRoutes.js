@@ -12,5 +12,6 @@ userRouter
 .post('/', nameValidation, emailValidation, passwordValidation, userController.insertUser);
 userRouter.get('/', tokenValidation, userController.getUsers);
 userRouter.get('/:id', tokenValidation, userController.getUser);
+userRouter.delete('/me', tokenValidation, userController.deleteUserByToken);
 
 module.exports = userRouter;
