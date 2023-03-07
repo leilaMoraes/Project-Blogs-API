@@ -1,6 +1,6 @@
 const { verifyToken } = require('../auth/authToken');
 
-module.exports = (req, res, next) => {
+const tokenValidation = (req, res, next) => {
   try {
     const { authorization } = req.headers;
     if (!authorization) return res.status(401).json({ message: 'Token not found' });
@@ -11,3 +11,5 @@ module.exports = (req, res, next) => {
     return res.status(500).json({ message: error.message });
   }
 };
+
+module.exports = { tokenValidation };
