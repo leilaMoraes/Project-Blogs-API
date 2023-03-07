@@ -2,6 +2,8 @@ const { User } = require('../models');
 
 const OK = 200;
 const CREATED = 201;
+const NOT_FOUND = 404;
+const MESSAGE = 'User does not exist';
 
 const insertUser = async (displayName, email, password, image) => {
   const newUser = await User.create({ displayName, email, password, image });
@@ -13,4 +15,10 @@ const getUsers = async () => {
   return { type: OK, message: users };
 };
 
-module.exports = { insertUser, getUsers };
+const getUser = async (id) => {
+  const user = await User.findByPk(id, { attributes: { exclude: 'password' } });
+  if (!user) return { type: NOT_FOUND, message: MESSAGE };
+  return { type: OK, message: user };
+};
+
+module.exports = { insertUser, getUsers, getUser };
