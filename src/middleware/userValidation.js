@@ -19,7 +19,7 @@ const emailValidation = async (req, res, next) => {
     .json({ message: '"email" must be a valid email' });
   }
   const userRegistered = await User.findOne({ where: { email } });
-  if (userRegistered) return res.status(409).json({ message: 'user already registered' });
+  if (userRegistered) return res.status(409).json({ message: 'User already registered' });
   return next();
 };
 
