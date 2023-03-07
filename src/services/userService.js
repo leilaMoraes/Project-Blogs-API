@@ -3,7 +3,7 @@ const { User } = require('../models');
 const OK = 200;
 const CREATED = 201;
 const NOT_FOUND = 404;
-const MESSAGE = 'User does not exist';
+const MESSAGE = { message: 'User does not exist' };
 
 const insertUser = async (displayName, email, password, image) => {
   const newUser = await User.create({ displayName, email, password, image });
