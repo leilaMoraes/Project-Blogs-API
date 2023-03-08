@@ -21,8 +21,9 @@ const getUser = async (id) => {
   return { type: OK, message: user };
 };
 
-const deleteUserByToken = async (id) => {
-  await User.destroy({ where: { id } });
+const deleteUserByToken = async (email) => {
+  const user = await User.findOne({ where: { email } });
+  await User.destroy({ where: { id: user.id } });
 };
 
 module.exports = { insertUser, getUsers, getUser, deleteUserByToken };
