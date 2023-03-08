@@ -1,6 +1,7 @@
 const { userService } = require('../services');
 
 const createToken = require('../auth/authToken');
+const { verifyToken } = require('../auth/authToken');
 
 const insertUser = async (req, res) => {
   try {
@@ -34,4 +35,16 @@ const getUser = async (req, res) => {
   }
 };
 
-module.exports = { insertUser, getUsers, getUser };
+const deleteUserByToken = async (req, res) => {
+  try {
+    const { authorization } = req.headers;
+    const decoded = verifyToken(authorization);
+    const { email } = decoded;
+    await userService.deleteUserByToken(email);
+    return res.status(204).json();
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};
+
+module.exports = { insertUser, getUsers, getUser, deleteUserByToken };
