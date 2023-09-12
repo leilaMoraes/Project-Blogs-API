@@ -1,8 +1,17 @@
 const { BlogPost, User, Category } = require('../models');
 
 const OK = 200;
+const CREATED = 201;
+const ERROR = 400;
 const NOT_FOUND = 404;
 const MESSAGE = { message: 'Post does not exist' };
+const MESSAGE2 = { message: 'Some required fields are missing' };
+
+const insertPost = async (title, content, categoryIds) => {
+  if (!title || !content || !categoryIds) return { type: ERROR, message: MESSAGE2 };
+  const newPost = await BlogPost.create({ title, content, categoryIds: [categoryIds] });
+  return { type: CREATED, message: newPost };
+};
 
 const getPosts = async () => {
   const posts = await BlogPost.findAll({ include: [
@@ -19,4 +28,4 @@ const getPost = async (id) => {
   return { type: OK, message: post };
 };
 
-module.exports = { getPosts, getPost };
+module.exports = { insertPost, getPosts, getPost };
